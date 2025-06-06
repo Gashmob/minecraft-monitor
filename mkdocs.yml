@@ -1,0 +1,43 @@
+site_name: Minecraft Monitor
+site_url: https://gashmob.github.io/minecraft-monitor/
+repo_url: https://github.com/Gashmob/minecraft-monitor
+site_description: Minecraft Monitor usage guide
+site_author: Kevin Traini
+copyright: GPL-2.0-or-later
+draft_docs: |
+  *.draft.md
+validation:
+  omitted_files: warn
+  absolute_links: relative_to_docs
+  unrecognized_links: warn
+  anchors: warn
+theme: 
+  name: material
+  language: en
+  font:
+    text: Noto Sans
+    code: Noto Sans Mono
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
