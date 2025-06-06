@@ -1,17 +1,52 @@
-# Welcome to MkDocs
+---
+title: Home
+hide:
+    - navigation
+    - toc
+---
+# Minecraft Monitor
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+A web application to create and manage your Minecraft servers.
 
-## Commands
+With it you can easily:
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+- Setup multi world servers
+- Add plugins and mods
+- Start/Stop/Restart the server
+- Manage you players
+- Get alerts when something is wrong
+- Display some statistics
 
-## Project layout
+!!! warning
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+    The set of features described in this documentation is not yet implemented. Thus you should not be able to test them. We strongly recommend to wait for the stable release.
+
+    You can check current advancement here: [https://github.com/Gashmob/minecraft-monitor/issues/1](https://github.com/Gashmob/minecraft-monitor/issues/1). The release note will be available here: [Releases](./releases/index.md).
+
+<div class="grid cards" markdown>
+
+-   :material-clock-fast:{ .lg .middle } __Start just now__
+
+    ---
+
+    Install Minecraft monitor and launch your first server
+
+    [:octicons-arrow-right-24: Getting started](./getting-started/installation.md)
+
+-   :fontawesome-solid-wind:{ .lg .middle } __Release the pressure__
+
+    ---
+
+    Manage your servers without fear
+
+    [:octicons-arrow-right-24: Usage](./usage/server-management/index.md)
+
+-   :fontawesome-solid-gears:{ .lg .middle } __Make it your own__
+
+    ---
+
+    Fine tuning both monitor and servers
+
+    [:octicons-arrow-right-24: Configuration](./configuration/index.md)
+
+</div>

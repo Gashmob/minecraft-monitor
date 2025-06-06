@@ -10,6 +10,8 @@ pkgs.mkShellNoCC {
   packages = [
     pkgs.python313Packages.mkdocs
     pkgs.python313Packages.mkdocs-material
+    pkgs.python313Packages.mkdocs-awesome-nav
+    pkgs.python313Packages.mkdocs-git-revision-date-localized-plugin
   ];
 
   shellHook = ''
