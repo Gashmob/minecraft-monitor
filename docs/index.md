@@ -23,6 +23,9 @@ With it you can easily:
 
     You can check current advancement here: [https://github.com/Gashmob/minecraft-monitor/issues/1](https://github.com/Gashmob/minecraft-monitor/issues/1). The release note will be available here: [Releases](./releases/index.md).
 
+!!! note
+    Parts written with {==highlight==} are subject to change along development.
+
 <div class="grid cards" markdown>
 
 -   :material-clock-fast:{ .lg .middle } __Start just now__

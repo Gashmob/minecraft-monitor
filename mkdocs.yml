@@ -48,6 +48,8 @@ theme:
     - navigation.top
     - navigation.indexes
     - toc.follow
+    - content.code.copy
+    - content.code.annotate
 markdown_extensions: 
   - admonition
   - toc:
@@ -57,6 +59,17 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.highlight:
+      linenums: true
+      anchor_linenums: true
+      line_spans: __span
+      use_pygments: true
+  - pymdownx.superfences
 plugins: 
   - search
   - awesome-nav
