@@ -50,7 +50,11 @@ theme:
     - toc.follow
     - content.code.copy
     - content.code.annotate
+    - content.tooltips
+extra_css:
+  - css/custom.css
 markdown_extensions: 
+  - abbr
   - admonition
   - toc:
       permalink: "#"
@@ -64,6 +68,7 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - pymdownx.snippets
   - pymdownx.highlight:
       linenums: true
       anchor_linenums: true
@@ -76,3 +81,5 @@ plugins:
   - git-revision-date-localized:
       type: iso_date
       exclude: [ index.md ]
+hooks:
+  - docs/.overrides/hooks/badges.py

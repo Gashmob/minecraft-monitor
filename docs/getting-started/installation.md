@@ -24,7 +24,7 @@ volumes:
   db-data:
 ```
 
-1. A volume bind to application configuration file, you can see more [here](../configuration/index.md).
+1. A volume bind to application configuration file, you can see more [here](../configuration/application/config.toml.md).
 
 !!! warning "Do not use this file directly"
     You should adapt it to your environment. Especially for the database configuration and version pin.
