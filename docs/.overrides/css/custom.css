@@ -1,0 +1,49 @@
+/**
+ * Minecraft monitor
+ * Copyright (C) 2028-Present  Kevin Traini
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
+
+.md-badge {
+    font-size: 0.85em;
+}
+
+.md-badge--icon {
+    padding: 4px;
+    background: var(--md-accent-fg-color--transparent);
+    border-start-start-radius: 2px;
+    border-end-start-radius: 2px;
+}
+
+.md-badge--icon:last-child {
+    border-radius: 2px;
+}
+
+.md-badge--icon:hover {
+    cursor: pointer;
+}
+
+.md-badge--text {
+    padding: 4px 6px;
+    border-start-end-radius: 2px;
+    border-end-end-radius: 2px;
+    box-shadow: 0 0 0 1px inset var(--md-accent-fg-color--transparent);
+    user-select: none;
+}
+
+.md-badge--text:hover {
+    cursor: default;
+}
