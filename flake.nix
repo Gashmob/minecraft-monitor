@@ -9,6 +9,7 @@
     currentDir = builtins.toString ./.;
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
+    pnpm = import ./tools/nix/pnpm.nix { pkgs = pkgs; nodejs = pkgs.nodejs_20; };
   in {
     devShells.${system}.default = pkgs.mkShellNoCC {
       packages = [ 
@@ -16,6 +17,7 @@
         pkgs.python313Packages.mkdocs-material
         pkgs.python313Packages.mkdocs-awesome-nav
         pkgs.python313Packages.mkdocs-git-revision-date-localized-plugin
+        pnpm
       ];
 
       shellHook = ''

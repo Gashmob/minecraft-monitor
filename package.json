@@ -1,0 +1,25 @@
+{
+  "name": "minecraft-monitor",
+  "author": "Kevin Traini <kevin@ktraini.com>",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "type": "module",
+  "description": "A web app to monitor your Minecraft servers",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "format": "prettier --write '**/*.{json,js,ts}'",
+    "lint": "eslint --fix",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "eslint": "^9.29.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.4.2",
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.4",
+    "typescript-eslint": "^8.34.0"
+  },
+  "packageManager": "pnpm@10.12.1"
+}
