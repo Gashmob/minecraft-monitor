@@ -16,17 +16,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import { defineConfig } from 'eslint/config';
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import type { Route } from '../router';
+import { health } from './health';
 
-export default defineConfig([
-    {
-        files: ['**/*.ts'],
-        ignores: ['**/dist/**'],
-        extends: [eslint.configs.recommended, tseslint.configs.strict, tseslint.configs.stylistic],
-        rules: {
-            '@typescript-eslint/consistent-type-imports': 'error',
-        },
-    },
-]);
+export const routes: Route[] = [health];

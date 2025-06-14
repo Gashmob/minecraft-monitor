@@ -8,6 +8,7 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
+    "type-check": "turbo run type-check",
     "format": "prettier --write '**/*.{json,js,ts}'",
     "lint": "eslint --fix",
     "prepare": "husky"
