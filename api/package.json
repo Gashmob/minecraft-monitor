@@ -8,8 +8,7 @@
   "scripts": {
     "watch": "vite build --watch --minify=false",
     "build": "vite build",
-    "type-check": "tsc --noEmit",
-    "test": "vitest --run"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "express": "^5.1.0"

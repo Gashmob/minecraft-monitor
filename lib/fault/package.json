@@ -1,0 +1,29 @@
+{
+  "name": "@minecraft-monitor/fault",
+  "author": "Kevin Traini <kevin@ktraini.com>",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "type": "module",
+  "module": "./dist/fault.js",
+  "main": "./dist/fault.umd.cjs",
+  "types": "./dist/Fault.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/Fault.d.ts",
+      "import": "./dist/fault.js",
+      "require": "./dist/fault.umd.cjs"
+    }
+  },
+  "scripts": {
+    "watch": "vite build --watch",
+    "build": "vite build",
+    "type-check": "tsc --noEmit",
+    "test": "vitest --run"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^3.1.4"
+  }
+}
