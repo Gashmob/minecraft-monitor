@@ -32,11 +32,15 @@ def on_page_markdown(markdown: str, *, page: Page, config: MkDocsConfig, files: 
         [name, args] = match.groups()
         match name:
             case "config-required":
-                return _badge_config_required(name, args)
+                return _badge_config_required(args)
             case "config-type":
                 return _badge_config_type(args)
             case "config-default-value":
                 return _badge_config_default_value(args)
+            case "api-method":
+                return _badge_api_method(args)
+            case "api-auth":
+                return _badge_api_auth(args)
             case _:
                 raise RuntimeError(f"Unknown badge name: '{name}'")
 
@@ -45,7 +49,7 @@ def on_page_markdown(markdown: str, *, page: Page, config: MkDocsConfig, files: 
         replaceCallback, markdown, flags=re.IGNORECASE
     )
 
-def __badge(icon: str, text: str):
+def __badge(icon: str, text: str = ""):
     return "".join([
         "<span class=\"md-badge\">",
         *(f"<span class=\"md-badge--icon\">{icon}</span>" if icon else []),
@@ -53,7 +57,7 @@ def __badge(icon: str, text: str):
         "</span>",
     ])
 
-def _badge_config_required(name: str, args: None | str):
+def _badge_config_required(args: None | str):
     return __badge(
         ":material-asterisk:{ title=\"Required\" }",
         args.strip() if not args is None else "required",
@@ -69,4 +73,15 @@ def _badge_config_default_value(args: None | str):
     return __badge(
         ":fontawesome-solid-droplet:{ title=\"Default value\" }",
         args.strip() if not args is None else "",
+    )
+
+def _badge_api_method(args: None | str):
+    return __badge(
+        ":material-at:{ title=\"Method\" }",
+        args.strip() if not args is None else "GET",
+    )
+
+def _badge_api_auth(args: None | str):
+    return __badge(
+        ":material-lock:" if args is None else ":fontawesome-solid-globe:"
     )

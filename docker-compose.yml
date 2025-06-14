@@ -1,0 +1,8 @@
+# /!\ THIS FILE IS FOR DEV PURPOSE. USE A PROPER FILE FOR PRODUCTION /!\
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - "${PWD}/api/dist:/api"
