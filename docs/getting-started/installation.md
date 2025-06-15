@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./config.toml:/etc/minecraft-monitor/ # (1)
+      - ./config.toml:/etc/minecraft-monitor/config.toml # (1)
     depends_on:
       - db
 

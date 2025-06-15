@@ -1,0 +1,6 @@
+# https://gashmob.github.io/minecraft-monitor/configuration/application/config.toml/
+
+[[logger]]
+type = "file"
+dir = "/var/log/minecraft-monitor/"
+level = "trace"

@@ -6,3 +6,4 @@ services:
       - "80:80"
     volumes:
       - "${PWD}/api/dist:/api"
+      - "${PWD}/config.toml:/etc/minecraft-monitor/config.toml"
