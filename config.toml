@@ -4,3 +4,7 @@
 type = "file"
 dir = "/var/log/minecraft-monitor/"
 level = "trace"
+
+[[logger]]
+type = "console"
+level = "trace"

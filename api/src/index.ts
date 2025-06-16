@@ -18,14 +18,24 @@
  */
 import express from 'express';
 import { collectRoutes } from './router';
+import { buildConfiguration, getConfig } from './services/config';
+import { getLogger } from './services/logger';
 
-const app = express();
-const api = express();
+getConfig()
+    .andThen((config) => buildConfiguration(config))
+    .map((config) => {
+        const logger = getLogger(config);
 
-collectRoutes(api);
+        const app = express();
+        const api = express();
 
-app.use('/api', api);
+        collectRoutes(api);
 
-app.listen(3000, () => {
-    console.log('Listening...');
-});
+        app.use('/api', api);
+        app.listen(3000, () => {
+            logger.info('Listening on port `3000`...');
+        });
+    })
+    .mapErr((fault) => {
+        console.error(`Failed to start API: ${fault}`);
+    });

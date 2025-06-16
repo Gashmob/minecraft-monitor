@@ -12,9 +12,12 @@
     "test": "vitest --run"
   },
   "dependencies": {
+    "@loglayer/transport-log-file-rotation": "^2.1.0",
     "@minecraft-monitor/fault": "workspace:^",
     "express": "^5.1.0",
+    "loglayer": "^6.4.2",
     "neverthrow": "^8.2.0",
+    "serialize-error": "^12.0.0",
     "smol-toml": "^1.3.4"
   },
   "devDependencies": {
