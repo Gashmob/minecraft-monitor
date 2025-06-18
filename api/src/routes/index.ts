@@ -16,7 +16,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import type { Route } from '../router';
+import type { Route } from '../types/router-types';
 import { health } from './health';
 
 export const routes: Route[] = [health];

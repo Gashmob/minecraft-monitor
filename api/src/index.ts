@@ -17,25 +17,40 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 import express from 'express';
-import { collectRoutes } from './router';
+import { collectErrorMiddlewares, collectMiddlewares, collectRoutes } from './router';
 import { buildConfiguration, getConfig } from './services/config';
 import { getLogger } from './services/logger';
+import { injectServicesInAPI } from './services';
 
 getConfig()
     .andThen((config) => buildConfiguration(config))
     .map((config) => {
         const logger = getLogger(config);
+        logger.info('Starting API...');
 
         const app = express();
         const api = express();
 
+        logger.trace('Injecting services');
+        injectServicesInAPI(api, logger);
+        logger.trace('Collecting middlewares');
+        collectMiddlewares(api);
+        logger.trace('Collecting routes');
         collectRoutes(api);
+        logger.trace('Collecting error middlewares');
+        collectErrorMiddlewares(api);
 
         app.use('/api', api);
-        app.listen(3000, () => {
+        app.listen(3000, (error?: Error) => {
+            if (error !== undefined) {
+                logger.fatal(`Failed to start API ${error.message}`);
+                process.exit(1);
+            }
+
             logger.info('Listening on port `3000`...');
         });
     })
     .mapErr((fault) => {
         console.error(`Failed to start API: ${fault}`);
+        process.exit(1);
     });

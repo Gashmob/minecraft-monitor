@@ -21,8 +21,9 @@ import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
 import { Fault } from '@minecraft-monitor/fault';
 import { parse } from 'smol-toml';
-import type { Configuration, LoggerConfiguration } from './config-types';
-import { CONFIG_FILE, DEFAULT_LOGGER } from './config-types';
+import { DEFAULT_LOGGER } from './logger';
+
+export const CONFIG_FILE = '/etc/minecraft-monitor/config.toml';
 
 export function getConfig(): Result<object, Fault> {
     if (!existsSync(CONFIG_FILE)) {

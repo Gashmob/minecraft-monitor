@@ -16,25 +16,13 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+import type { Express } from 'express';
+import type { ILogLayer } from 'loglayer';
 
-export const CONFIG_FILE = '/etc/minecraft-monitor/config.toml';
-
-export interface Configuration {
-    readonly logger: readonly LoggerConfiguration[];
+export function injectServicesInAPI(api: Express, logger: ILogLayer): void {
+    // logger
+    api.use((req, _, next) => {
+        req.logger = logger;
+        next();
+    });
 }
-
-export type LoggerType = 'file' | 'console';
-
-export type LoggerLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
-
-export interface LoggerConfiguration {
-    readonly type: LoggerType;
-    readonly level: LoggerLevel;
-    readonly dir?: string | undefined;
-}
-
-export const DEFAULT_LOGGER: LoggerConfiguration = {
-    type: 'file',
-    level: 'warn',
-    dir: '/var/log/minecraft-monitor',
-};

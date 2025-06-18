@@ -16,12 +16,16 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import type { Route } from '../types/router-types';
+import type { RequestHandler } from 'express';
 
-export const health: Route = {
-    method: 'HEAD',
-    path: '/health',
-    handler: (_, res) => {
-        res.sendStatus(200);
-    },
-};
+export type RouteMethod = 'HEAD' | 'OPTIONS' | 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | '*';
+
+export interface Route {
+    readonly method: RouteMethod;
+    readonly path: string;
+    readonly handler: RequestHandler;
+}
+
+export type Middleware = Route;
+
+export type ErrorMiddleware = Pick<Middleware, 'handler'>;

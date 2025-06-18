@@ -16,12 +16,10 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import type { Route } from '../types/router-types';
 
-export const health: Route = {
-    method: 'HEAD',
-    path: '/health',
-    handler: (_, res) => {
-        res.sendStatus(200);
-    },
-};
+declare interface RestError {
+    readonly error: {
+        readonly code: number;
+        readonly message: string;
+    };
+}

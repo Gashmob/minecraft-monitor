@@ -16,12 +16,15 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import type { Route } from '../types/router-types';
+import { trace_route } from './trace-route';
+import type { ErrorMiddleware, Middleware } from '../types/router-types';
+import { error_404 } from './errors/404';
+import { generic } from './errors/generic';
 
-export const health: Route = {
-    method: 'HEAD',
-    path: '/health',
-    handler: (_, res) => {
-        res.sendStatus(200);
-    },
-};
+export const middlewares: Middleware[] = [trace_route];
+
+export const error_middlewares: ErrorMiddleware[] = [
+    error_404,
+    // Keep `generic` at the end
+    generic,
+];

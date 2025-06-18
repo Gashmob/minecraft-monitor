@@ -16,12 +16,23 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import type { Route } from '../types/router-types';
+import type { ErrorMiddleware } from '../../types/router-types';
 
-export const health: Route = {
-    method: 'HEAD',
-    path: '/health',
-    handler: (_, res) => {
-        res.sendStatus(200);
+export const generic: ErrorMiddleware = {
+    handler: (req, res) => {
+        if (req.error === undefined) {
+            req.logger.debug('Uncaught server error');
+            res.status(500).json({
+                error: {
+                    code: 500,
+                    message: 'Uncaught server error',
+                },
+            });
+            return;
+        }
+
+        const error = req.error;
+        req.logger.withMetadata(error).debug('Caught error');
+        res.status(error.error.code).json(error);
     },
 };

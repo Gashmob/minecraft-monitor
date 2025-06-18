@@ -17,10 +17,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
-import { buildConfiguration, getConfig } from './config';
+import { buildConfiguration, CONFIG_FILE, getConfig } from './config';
 import { fs, vol } from 'memfs';
-import type { Configuration, LoggerConfiguration } from './config-types';
-import { CONFIG_FILE, DEFAULT_LOGGER } from './config-types';
+import { DEFAULT_LOGGER } from './logger';
 
 describe('config', () => {
     describe('getConfig', () => {

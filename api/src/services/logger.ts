@@ -18,9 +18,14 @@
  */
 import type { ILogLayer, LogLayerTransport } from 'loglayer';
 import { ConsoleTransport, LogLayer } from 'loglayer';
-import type { Configuration, LoggerConfiguration } from './config-types';
 import { serializeError } from 'serialize-error';
 import { LogFileRotationTransport } from '@loglayer/transport-log-file-rotation';
+
+export const DEFAULT_LOGGER: LoggerConfiguration = {
+    type: 'file',
+    level: 'warn',
+    dir: '/var/log/minecraft-monitor',
+};
 
 export function getLogger(config: Configuration): ILogLayer {
     const transports: LogLayerTransport[] = [];

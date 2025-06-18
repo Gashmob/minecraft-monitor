@@ -16,12 +16,16 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-import type { Route } from '../types/router-types';
+import type { ErrorMiddleware } from '../../types/router-types';
 
-export const health: Route = {
-    method: 'HEAD',
-    path: '/health',
-    handler: (_, res) => {
-        res.sendStatus(200);
+export const error_404: ErrorMiddleware = {
+    handler: (req, _, next) => {
+        req.error = {
+            error: {
+                code: 404,
+                message: `Resource not found: ${req.method} ${req.path}`,
+            },
+        };
+        next();
     },
 };

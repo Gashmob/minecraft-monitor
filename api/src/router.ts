@@ -18,13 +18,13 @@
  */
 import type { Express, RequestHandler } from 'express';
 import { routes } from './routes';
+import { error_middlewares, middlewares } from './middlewares';
+import type { RouteMethod } from './types/router-types';
 
-export type RouteMethod = 'HEAD' | 'OPTIONS' | 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | '*';
-
-export interface Route {
-    readonly method: RouteMethod;
-    readonly path: string;
-    readonly handler: RequestHandler;
+export function collectMiddlewares(api: Express): void {
+    middlewares.forEach((middleware) => {
+        addRouteToAPI(api, middleware.method, middleware.path, middleware.handler);
+    });
 }
 
 export function collectRoutes(api: Express): void {
@@ -33,37 +33,15 @@ export function collectRoutes(api: Express): void {
     routes_methods.get('/')?.add('GET');
 
     routes.forEach((route) => {
-        if (!routes_methods.has(route.path)) {
-            routes_methods.set(route.path, new Set());
+        const path = route.path;
+        const method = route.method;
+        const handler = route.handler;
+        if (!routes_methods.has(path)) {
+            routes_methods.set(path, new Set());
         }
-        routes_methods.get(route.path)?.add(route.method);
+        routes_methods.get(path)?.add(method);
 
-        switch (route.method) {
-            case 'HEAD':
-                api.head(route.path, route.handler);
-                break;
-            case 'OPTIONS':
-                api.options(route.path, route.handler);
-                break;
-            case 'GET':
-                api.get(route.path, route.handler);
-                break;
-            case 'POST':
-                api.post(route.path, route.handler);
-                break;
-            case 'PATCH':
-                api.patch(route.path, route.handler);
-                break;
-            case 'PUT':
-                api.put(route.path, route.handler);
-                break;
-            case 'DELETE':
-                api.delete(route.path, route.handler);
-                break;
-            case '*':
-                api.all(route.path, route.handler);
-                break;
-        }
+        addRouteToAPI(api, method, path, handler);
     });
 
     api.get('/', (req, res) => {
@@ -74,4 +52,44 @@ export function collectRoutes(api: Express): void {
 
         res.json(Object.fromEntries(map));
     });
+}
+
+export function collectErrorMiddlewares(api: Express): void {
+    error_middlewares.forEach((middleware) => {
+        api.use(middleware.handler);
+    });
+}
+
+function addRouteToAPI(
+    api: Express,
+    method: RouteMethod,
+    path: string,
+    handler: RequestHandler,
+): void {
+    switch (method) {
+        case 'HEAD':
+            api.head(path, handler);
+            break;
+        case 'OPTIONS':
+            api.options(path, handler);
+            break;
+        case 'GET':
+            api.get(path, handler);
+            break;
+        case 'POST':
+            api.post(path, handler);
+            break;
+        case 'PATCH':
+            api.patch(path, handler);
+            break;
+        case 'PUT':
+            api.put(path, handler);
+            break;
+        case 'DELETE':
+            api.delete(path, handler);
+            break;
+        case '*':
+            api.all(path, handler);
+            break;
+    }
 }
