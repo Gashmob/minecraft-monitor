@@ -1,0 +1,4 @@
+pnpm run format > /dev/null
+pnpm run lint > /dev/null
+
+git update-index --again

@@ -1,0 +1,31 @@
+# /!\ THIS FILE IS FOR DEV PURPOSE. USE A PROPER FILE FOR PRODUCTION /!\
+services:
+  app:
+    build:
+      context: .
+      target: development
+    ports:
+      - "80:80"
+    volumes:
+      - "${PWD}/api/dist:/api"
+      - "${PWD}/config.toml:/etc/minecraft-monitor/config.toml"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17.5
+    environment:
+      POSTGRES_USER: monitor_db
+      POSTGRES_PASSWORD: secretpassword
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  db-admin:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db-data:

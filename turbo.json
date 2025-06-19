@@ -1,0 +1,20 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "type-check": {
+      "dependsOn": ["^build"],
+      "inputs": ["package.json", "tsconfig.json", "pnpm-lock.yaml", "vite.config.ts", "src/**"],
+      "outputs": []
+    },
+    "build": {
+      "dependsOn": ["type-check", "^build"],
+      "inputs": ["package.json", "tsconfig.json", "pnpm-lock.yaml", "vite.config.ts", "src/**"],
+      "outputs": ["dist/**"]
+    },
+    "test": {
+      "dependsOn": ["type-check"],
+      "inputs": ["package.json", "tsconfig.json", "pnpm-lock.yaml", "vite.config.ts", "src/**"],
+      "outputs": []
+    }
+  }
+}

@@ -3,6 +3,10 @@
 site
 __pycache__
 .direnv
+node_modules
+.turbo
+dist
+*.tsbuildinfo
 
 # Files to remove later but need to be ignored for now
 specs.md
