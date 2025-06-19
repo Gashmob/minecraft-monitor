@@ -11,6 +11,8 @@ updates:
     directories:
       - /
       - /api
+      - /app
+      - /lib/*
     schedule:
       interval: daily
     commit-message:
