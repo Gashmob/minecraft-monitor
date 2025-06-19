@@ -18,11 +18,29 @@
  */
 import type { Express } from 'express';
 import type { ILogLayer } from 'loglayer';
+import { getDatabase } from './database';
 
-export function injectServicesInAPI(api: Express, logger: ILogLayer): void {
+export async function injectServicesInAPI(
+    api: Express,
+    logger: ILogLayer,
+    config: Configuration,
+): Promise<void> {
     // logger
     api.use((req, _, next) => {
         req.logger = logger;
         next();
     });
+
+    // database
+    await getDatabase(config).match(
+        (client) =>
+            api.use((req, _, next) => {
+                req.db = client;
+                next();
+            }),
+        (fault) => {
+            logger.fatal(fault.toString());
+            process.exit(1);
+        },
+    );
 }

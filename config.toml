@@ -1,5 +1,11 @@
 # https://gashmob.github.io/minecraft-monitor/configuration/application/config.toml/
 
+[database]
+host = 'db'
+port = 5432
+user = 'monitor_db'
+password = 'secretpassword'
+
 [[logger]]
 type = "file"
 dir = "/var/log/minecraft-monitor/"

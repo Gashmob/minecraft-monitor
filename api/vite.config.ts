@@ -27,6 +27,7 @@ export default defineConfig({
             input: {
                 api: path.resolve(__dirname, 'src/index.ts'),
             },
+            external: ['cloudflare:sockets'],
         },
         ssr: true,
         minify: true,

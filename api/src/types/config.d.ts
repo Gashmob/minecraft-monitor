@@ -18,7 +18,15 @@
  */
 
 declare interface Configuration {
+    readonly database: DatabaseConfiguration;
     readonly logger: readonly LoggerConfiguration[];
+}
+
+declare interface DatabaseConfiguration {
+    readonly host: string;
+    readonly port: number;
+    readonly user: string;
+    readonly password: string;
 }
 
 declare type LoggerType = 'file' | 'console';

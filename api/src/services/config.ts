@@ -40,7 +40,39 @@ export function getConfig(): Result<object, Fault> {
 }
 
 export function buildConfiguration(input: object): Result<Configuration, Fault> {
-    return buildLoggerConfiguration(input).andThen((logger) => ok({ logger }));
+    return buildDatabaseConfiguration(input).andThen((database) =>
+        buildLoggerConfiguration(input).andThen((logger) => ok({ database, logger })),
+    );
+}
+
+function buildDatabaseConfiguration(input: object): Result<DatabaseConfiguration, Fault> {
+    if (!('database' in input)) {
+        return err(Fault.fromMessage('Database configuration is mandatory'));
+    }
+
+    const database_object = input.database;
+    if (
+        typeof database_object !== 'object' ||
+        database_object === null ||
+        !('host' in database_object) ||
+        typeof database_object.host !== 'string' ||
+        !('user' in database_object) ||
+        typeof database_object.user !== 'string' ||
+        !('password' in database_object) ||
+        typeof database_object.password !== 'string'
+    ) {
+        return err(Fault.fromMessage('Database configuration is incomplete'));
+    }
+
+    return ok({
+        host: database_object.host,
+        port:
+            'port' in database_object && typeof database_object.port === 'number'
+                ? database_object.port
+                : 5432,
+        user: database_object.user,
+        password: database_object.password,
+    });
 }
 
 function buildLoggerConfiguration(input: object): Result<LoggerConfiguration[], Fault> {

@@ -34,6 +34,7 @@ describe('logger', () => {
         it('Should build a console transport', () => {
             const ConsoleTransport = vi.spyOn(loglayer, 'ConsoleTransport');
             getLogger({
+                database: { host: '', port: 0, user: '', password: '' },
                 logger: [{ type: 'console', level: 'debug' }],
             });
 
@@ -46,6 +47,7 @@ describe('logger', () => {
         it('Should build a file transport', () => {
             const LogFileRotationTransport = vi.spyOn(filelog, 'LogFileRotationTransport');
             getLogger({
+                database: { host: '', port: 0, user: '', password: '' },
                 logger: [{ type: 'file', level: 'trace', dir: '/var/log/minecraft-monitor' }],
             });
 

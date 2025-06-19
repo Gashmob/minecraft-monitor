@@ -24,7 +24,7 @@ import { injectServicesInAPI } from './services';
 
 getConfig()
     .andThen((config) => buildConfiguration(config))
-    .map((config) => {
+    .map(async (config) => {
         const logger = getLogger(config);
         logger.info('Starting API...');
 
@@ -32,7 +32,7 @@ getConfig()
         const api = express();
 
         logger.trace('Injecting services');
-        injectServicesInAPI(api, logger);
+        await injectServicesInAPI(api, logger, config);
         logger.trace('Collecting middlewares');
         collectMiddlewares(api);
         logger.trace('Collecting routes');

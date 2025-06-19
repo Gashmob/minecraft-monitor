@@ -19,7 +19,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { buildConfiguration, CONFIG_FILE, getConfig } from './config';
 import { fs, vol } from 'memfs';
-import { DEFAULT_LOGGER } from './logger';
 
 describe('config', () => {
     describe('getConfig', () => {
@@ -69,8 +68,41 @@ level = "trace"
     });
 
     describe('buildConfiguration', () => {
+        const minimal_database_input = {
+            host: 'https://example.com/postgres',
+            user: 'pg-user',
+            password: 'pg-password',
+        };
+
+        it('Should return Err if database config is not present', () => {
+            const result = buildConfiguration({});
+            expect(result.isErr()).toBe(true);
+            result.mapErr((fault) =>
+                expect(fault.toString()).toContain('Database configuration is mandatory'),
+            );
+        });
+
+        it('Should return Err if database config miss some keys', () => {
+            const result = buildConfiguration({ database: {} });
+            expect(result.isErr()).toBe(true);
+            result.mapErr((fault) =>
+                expect(fault.toString()).toContain('Database configuration is incomplete'),
+            );
+        });
+
+        it('Should return Ok when database config is correct', () => {
+            const result = buildConfiguration({ database: minimal_database_input });
+            expect(result.isOk()).toBe(true);
+            expect(result.unwrapOr(null)?.database).toStrictEqual({
+                host: 'https://example.com/postgres',
+                port: 5432,
+                user: 'pg-user',
+                password: 'pg-password',
+            });
+        });
+
         it('Should return Err if logger is not an array', () => {
-            const result = buildConfiguration({ logger: true });
+            const result = buildConfiguration({ database: minimal_database_input, logger: true });
             expect(result.isErr()).toBe(true);
             result.mapErr((fault) =>
                 expect(fault.toString()).toContain('Logger configuration should be an array'),
@@ -78,7 +110,10 @@ level = "trace"
         });
 
         it('Should return Err if logger has not type', () => {
-            const result = buildConfiguration({ logger: [{ key: 'value' }] });
+            const result = buildConfiguration({
+                database: minimal_database_input,
+                logger: [{ key: 'value' }],
+            });
             expect(result.isErr()).toBe(true);
             result.mapErr((fault) =>
                 expect(fault.toString()).toContain('A logger should have a type'),
@@ -86,34 +121,29 @@ level = "trace"
         });
 
         it('Should return Err logger.type is not a string', () => {
-            const result = buildConfiguration({ logger: [{ type: true }] });
+            const result = buildConfiguration({
+                database: minimal_database_input,
+                logger: [{ type: true }],
+            });
             expect(result.isErr()).toBe(true);
             result.mapErr((fault) =>
                 expect(fault.toString()).toContain('A logger should have a type'),
             );
         });
 
-        it.each([
-            [{}, { logger: [DEFAULT_LOGGER] }],
-            [{ logger: [] }, { logger: [DEFAULT_LOGGER] }],
-            [{ logger: [{ type: 'file' }] }, { logger: [DEFAULT_LOGGER] }],
-            [
-                { logger: [{ type: 'file', level: 'trace', dir: '/logs' }] },
-                { logger: [{ type: 'file', level: 'trace', dir: '/logs' } as LoggerConfiguration] },
-            ],
-            [
-                { logger: [DEFAULT_LOGGER, { type: 'console' }] },
-                {
-                    logger: [
-                        DEFAULT_LOGGER,
-                        { type: 'console', level: 'warn' } as LoggerConfiguration,
-                    ],
-                },
-            ],
-        ])('Should build the corresponding config', (input: object, expected: Configuration) => {
-            const result = buildConfiguration(input);
+        it('Should build the corresponding config', () => {
+            const result = buildConfiguration({
+                database: minimal_database_input,
+                logger: [{ type: 'file', level: 'trace', dir: '/logs' }],
+            });
             expect(result.isOk()).toBe(true);
-            expect(result.unwrapOr(null)).toStrictEqual(expected);
+            expect(result.unwrapOr(null)).toStrictEqual({
+                database: {
+                    ...minimal_database_input,
+                    port: 5432,
+                },
+                logger: [{ type: 'file', level: 'trace', dir: '/logs' }],
+            });
         });
     });
 });
