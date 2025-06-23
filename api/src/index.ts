@@ -51,6 +51,7 @@ getConfig()
         });
     })
     .mapErr((fault) => {
+        // eslint-disable-next-line no-console
         console.error(`Failed to start API: ${fault}`);
         process.exit(1);
     });
