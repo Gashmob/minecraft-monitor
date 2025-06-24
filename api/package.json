@@ -15,7 +15,7 @@
     "@loglayer/transport-log-file-rotation": "^2.1.0",
     "@minecraft-monitor/fault": "workspace:^",
     "express": "^5.1.0",
-    "loglayer": "^6.4.2",
+    "loglayer": "^6.4.3",
     "neverthrow": "^8.2.0",
     "pg": "^8.16.1",
     "serialize-error": "^12.0.0",
